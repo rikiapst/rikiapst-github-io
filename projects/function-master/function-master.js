@@ -133,10 +133,11 @@ function profileInfo(object) {
 
 function maybeNoises(object) {
 
-     if(!object.noises || !object.noises.length){
-         return "there are no noises"
-            
-     } else { return object.noises.join(" ")}
+        var str = "";
+     if(object.hasOwnProperty('noises') === true && object.noises.length > 0 && Array.isArray(object.noises) === true){
+            str += object.noises.join(" ")
+            return str
+     } else {return "there are no noises"}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -172,18 +173,24 @@ function addFriend (name, object) {
 //////////////////////////////////////////////////////////////////////
 // Function 12 - Is Friend ///////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-
+//Creating a function that takes in a name and an object 
+//Return true if the given name is in the friends array within the given object
+//Return false if there are no friends and if names is not a friend in the friends array
 function isFriend(name, object) {
+
+if (!object.friends) {
+    return false;}
+    
 var list = object.friends
 
+
 for(var i = 0; i < list.length; i++){
-    if(name.toLowerCase() === list[i].toLowerCase){
+    if(name.toLowerCase() === list[i].toLowerCase()){
         return true;
     } 
-        return false;
-        
-    
-}
+} return false;
+
+
 
 
 }
@@ -191,25 +198,20 @@ for(var i = 0; i < list.length; i++){
 //////////////////////////////////////////////////////////////////////
 // Function 13 - Non-Friends /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-//Creating a function that takes in a name and an array of names 
-//Returning all of the names that name is not friends with
-//Creating an array literal to store the out put of the for loop
-//sing a for loop to loop through the array of names 
-//Usinf an if conditional to compare the names 
-//Then compare that array of friends to the given array of friends 
-//Then return all of the names that are in the given array but not in the names friends array
+//creating a function that takes in two parameters an array of names and a name 
+//access the given names friends array using dot notation
+//loop through the friends array
+//create an array literal to store the outputs
+//
 function nonFriends(name, array) {
-        var arr = [];
-        
-        for(var i = 0; i < array.length; i++){
-            for(var i = 0; i < [i].friends.length; i++){
-                if(array[i].friends[i].toLowerCase() !== name.toLowerCase()){
-                    arr.push(array[i].friends[i])
-                }
-        }
-            
-        } return arr;
+    var newArr = [];
+    for(var i = 0; i < array.length; i++){
+        if(!array[i].friends.includes(name) && array[i].name !== name){
+            newArr.push(array[i].name);
+        } 
+    } return newArr;
 }
+
 
 //////////////////////////////////////////////////////////////////////
 // Function 14 - Update Object ///////////////////////////////////////
@@ -220,30 +222,55 @@ function nonFriends(name, array) {
 //If the key does not exist create it using dot notation
 
 function updateObject(object, key, value) {
-       if(object.hasOwnProperty(key)){
+       if(!object[key]){
            object[key] = value;
        } else {
-           object[key]
+           object[key] = value;
        }
-        
+        return object;
 }
 
 //////////////////////////////////////////////////////////////////////
 // Function 15 - Remove Properties ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-
+//creating a function that takes in an object and an array of strings
+//Looping through the array of strings to access its elements in the array
+//creatinf an if conditional to test if the elements inside of the array are properties on the given object peram
+//Using the hawOwnProperty method to check 
+//Using the delete operator if the condition is true
 function removeProperties(object, array) {
-
+     
+     for(var i = 0; i < array.length; i++){
+         if(object.hasOwnProperty(array[i]) === true){
+             delete object[array[i]];
+         }
+     } 
 }
 
 //////////////////////////////////////////////////////////////////////
 // Function 16 - Dedup ///////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-
+//creating a function that takes in an array parameter
+//creating a for loop to loop through the array 
+// Using an if conditional to test each array element against each other
+//creating an array literal to push the non duplicates to 
+// returning the new array of non duplicates 
 function dedup(array) {
+    var newArr = [];
+    
+    for(var i = 0; i < array.length; i++){
+        
+        if(!newArr.includes(array[i])){
+
+            newArr.push(array[i])
+        }
+    } return newArr;
 
 }
+// let chars = ['A', 'B', 'A', 'C', 'B'];
+// let uniqueChars = [...new Set(chars)];
 
+// console.log(uniqueChars);
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////

@@ -126,7 +126,7 @@ function typeOf(value) {
         return "date"
     } else if(typeof value === "function"){
         return "function"
-    } else{return "undifined"}
+    } else{return "undefined"}
     
     
     // YOUR CODE ABOVE HERE //

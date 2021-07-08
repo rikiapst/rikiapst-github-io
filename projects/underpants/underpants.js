@@ -21,6 +21,9 @@ var _ = {};
 *   _.identity({a: "b"}) === {a: "b"}
 */
 
+_.identity = function(value){
+    return value;
+}
 
 /** _.typeOf
 * Arguments:
@@ -42,6 +45,26 @@ var _ = {};
 * _.typeOf([1,2,3]) -> "array"
 */
 
+_.typeOf = function(value){
+      if(typeof value === "string"){
+        return "string"
+    }else if (Array.isArray(value) === true){
+        return "array"
+    } else if(typeof value === "object" && Array.isArray(value) !== true && value !== null && value instanceof Date !== true){
+        return "object"
+    } else if(typeof value === "number"){
+        return "number"
+    } else if(typeof value === "boolean"){
+        return "boolean"
+    } else if(value === null){
+        return "null"
+    } else if(value instanceof Date === true){
+        return "date"
+    } else if(typeof value === "function"){
+        return "function"
+    } return "undefined"
+    
+}
 
 /** _.first
 * Arguments:
@@ -60,8 +83,29 @@ var _ = {};
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
+//I: An array and a number
+//O: Multiple different return satements 
+//Creating a afunction that takes in an array and a number
+//using an if conditional to run multiple test inside of the function
+//The first test will use the array.isarray method to test if the given array parameter is in fact an array 
+// If the array is not an array return an empty array using the ! operator
+// In the next conditional test if the given number parameter is a number if its not a number using typeof
+//If its not a number return the first element in the given array using bracket notation
+//Next conditional test if the given number is greater that array.length -1 is so, return the entire array
+//if all else fails use the else statement to return the given number of elements in the array
 
-
+_.first = function(array, number){
+   if(!Array.isArray(array)){
+       return [];
+   } else if(typeof number !== "number"){
+       return array[0];
+   } else if(number > array.length - 1){
+       return array;
+   }else {
+       return array.splice(0,number)
+   }
+   
+}
 /** _.last
 * Arguments:
 *   1) An array
@@ -79,7 +123,22 @@ var _ = {};
 *   _.last(["a", "b", "c"], 1) -> "c"
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
+//Creating a function that takes intwo parameters an array and a number
+//using arra.isarray to test if the given array is an array data type if its not return empty array 
+//if the number is not a number using the typeof operator returning the last element in the array using bracket notation and the .length method
+// using .splice to return the last number of elements in the array
 
+_.last = function(array, number){
+    if(!Array.isArray(array)){
+        return [];
+    } else if(typeof number !== "number"){
+        return array[array.length - 1];
+    }else if(number > array.length - 1){
+        return array;
+    } else{
+        return array.splice(array.length - number, number)
+    } 
+}
 
 /** _.indexOf
 * Arguments:
@@ -96,7 +155,24 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
+//Creating a function with two inputs of an array and a given value
+//Returning the index of the array that is the first occurrance of the given value
+//Using a for loop to loop through the given array 
+//using an if conditional to test wether the given value is inside of the array and then return its index
+//if the given value is not inside of the array return -1 
 
+_.indexOf = function(array, value){
+
+  
+    for(var i = 0; i < array.length; i++){
+       
+        if(array[i] === value){
+            return i
+        } 
+        
+    }return -1;
+    
+}
 
 /** _.contains
 * Arguments:
@@ -112,7 +188,22 @@ var _ = {};
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
+//function takes in two parameters an array and a value 
+// return true if array contains value
+//Using a for loop to loop through the array 
+//Using an if conditional to test if value is in the given array
+//Returning true if it is 
+//returning false outside of the loop if its not 
 
+_.contains = function(array, value){
+    
+    for(var i = 0; i < array.length; i++){
+        if(array[i] === value){
+            return true;
+        }
+    } return false;
+    
+}
 
 /** _.each
 * Arguments:
@@ -130,6 +221,17 @@ var _ = {};
 *      -> should log "a" "b" "c" to the console
 */
 
+_.each = function(collection, func){
+    if(Array.isArray(collection)){
+        for(var i = 0; i < collection.length; i++){
+            func(collection[i], i, collection)
+        }} else {
+            for(var key in collection){
+            func(collection[key], key, collection)
+        }
+    }
+}
+
 
 /** _.unique
 * Arguments:
@@ -141,6 +243,21 @@ var _ = {};
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
 
+// creating a function that takes in an array 
+// returning a new  array with the duplicates removed
+// creating an array literal to stor the array elements 
+//using the indexOf function that was created above indexOf returns the first occurance of a value in an array
+
+_.unique = function(array){
+
+      let newArr = [];
+    for (let i = 0; i < array.length; i++) {
+        if (newArr.indexOf(array[i]) === -1) {
+            newArr.push(array[i]);
+        }
+    }
+    return newArr;
+}
 
 /** _.filter
 * Arguments:
@@ -157,7 +274,18 @@ var _ = {};
 * Extra Credit:
 *   use _.each in your implementation
 */
-
+//Creating a function that takes in an array and a function
+//Call a function on each element its index and the array
+//return a new array of elements if true 
+_.filter = function(array, func){
+    var newArray = [];
+    for(var i = 0; i < array.length; i++){
+        if(func(array[i], i, array) === true){
+         newArray.push(array[i])  
+         
+        }
+    }return newArray;
+}
 
 /** _.reject
 * Arguments:
@@ -171,6 +299,21 @@ var _ = {};
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
+
+//creating a function that takes in two parameters an array and a function
+// using a for loop to loop through the array and call the function on each element, index and array 
+// return a new array of elements that return false from the function
+//Creates a new array literal to store the functions outputs
+
+_.reject = function(array, func){
+    var newArr = [];
+    
+    for(var i = 0; i < array.length; i++){
+        if(func(array[i], i, array) === false){
+            newArr.push(array[i])
+        }
+    } return newArr;
+}
 
 
 /** _.partition
@@ -191,6 +334,30 @@ var _ = {};
 *   }); -> [[2,4],[1,3,5]]
 }
 */
+//Creating a function that takes in an array and a function
+//creating two emprty arrays to store the nested array falsy values
+//creating a for loop to loop through the arrays
+//using an if and else conditionaal statement to test for true and falsy values
+//assigning truthy values to an arry
+//assigning the falsy values to another array 
+
+_.partition = function (array, func){
+    var arr1 = [[],[]];
+  
+    
+    for(var i = 0; i < array.length; i++){
+        if(func(array[i], i, array) === true){
+           arr1[0].push(array[i]);
+        } else if(func(array[i], i, array) === false){
+           arr1[1].push(array[i]);
+            //arr1.push(arr2);
+        }
+    } 
+    
+    return arr1;
+    
+}
+
 
 
 /** _.map
@@ -208,7 +375,29 @@ var _ = {};
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
+//Creating a function that takes in a collection and a function
+//create two array literals to store the output of the function calls
+//test wether the given collection is an array or an object using a conditional statement 
+//using array.isarray and typeof for object
+//using a for loop and for in loop to loop over the array and the object to access its values 
 
+_.map = function(collection, func){
+    var arr = [];
+    var obj = [];
+    
+    if(Array.isArray(collection) === true){
+        for(var i = 0; i < collection.length; i++){
+            arr.push(func(collection[i], i, collection))
+            
+        } return arr;
+    }else if(typeof collection === "object"){
+            for(var key in collection){
+                obj.push(func(collection[key], key, collection))
+                
+            }return obj;
+        }
+    
+}
 
 /** _.pluck
 * Arguments:
