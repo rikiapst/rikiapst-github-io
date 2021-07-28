@@ -409,6 +409,19 @@ _.map = function(collection, func){
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
+//the function created will take in an array of objects and a property 
+// returning an array with the values of the given property for every element in the array 
+//So basically i dont have to loop through the array, i have to access the given property and its values
+//I may need to check if the array even have the given property on its objevts 
+//with that being said i may need to loop through the array, access its objects and use dot notation to test if the given property is a property or use .includes
+//must use .map to implement the functipon
+
+_.pluck = function(array, property) {
+    let result = _.map(array, function(value, i, collection) {
+        return value[property];
+    })
+    return result;
+}
 
 
 /** _.every
@@ -431,7 +444,42 @@ _.map = function(collection, func){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+//a function that takes in a collection and a function
+//use the each function to go through the given collection
+//return true if the function results to true 
+//creating a variable 
+//test if theres not a function 
+//assign a vvariable to true and return that variable
+// using an if staement to test if there is a function given
+//if there is no function use the each function to test each values test for false values
+//use an else statement to test for other conditions if there is a function
+////use each to test the elements in the collection 
+//use an if statement to test if the value of the function results to false 
+//if one elmenet results to false then return false
+//if all elements are true in both cases then true would be returned 
 
+
+_.every = function(collection, func){
+    
+     var result = true;
+     
+    if (!func) {
+        _.each(collection, function(value, i, collection) {
+            if (value === false) {
+             result = false;
+        } 
+        })
+     } else {
+         _.each(collection, function(value, i, collection) {
+             if (func(value, i, collection) === false) {
+                 result = false;
+             }
+         })
+      }
+ return result;
+    
+    
+}
 
 /** _.some
 * Arguments:
@@ -453,7 +501,33 @@ _.map = function(collection, func){
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
+//Creating a function that takes in a collection and a function
+// using the every function to loop through the collection
+//the every operator will test every item in the collection wether its an array or object 
+//using an if else conditional to test it there is or is not a given funtion
+//creating a varibale names result to store the false boolean value 
+//reassigning the result variable in side of the conditional when at least one of the conditions test to be true 
 
+
+_.some = function(collection, func){
+    let result = false;
+    if(!func){
+        _.every(collection, function(value, i, collection){
+        if(value === true){
+            result = true;
+            return result;
+        }
+    })
+    } else { _.every(collection, function(value, i, collection){
+        if(func(value, i, collection) === true){
+            result = true
+            return result;
+        }
+    })
+        
+    }
+    return result 
+}
 
 /** _.reduce
 * Arguments:
@@ -474,6 +548,34 @@ _.map = function(collection, func){
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+ //check if seed exists/ not undefined
+ _.reduce = function(array, func, seed){
+    if(seed !== undefined) {
+       //if it does, then loop through array
+       for(var i = 0; i < array.length; i++) {
+           //reassign seed to be value of function call 
+          //call the func function on seed, value, index
+          seed = func(seed, array[i], i)
+       }
+       //return seed
+       return seed;
+    } else {
+        //if no seed given, first value in array is the seed
+        seed = array[0];
+        //if it does, then loop through array
+        for (var i = 1; i < array.length; i++) {
+          //reassign seed to be value of function call 
+          //call the func function on seed, value, index
+          seed = func(seed, array[i], i);
+        }
+        return seed;
+    }}
+
+
+
+
+
+
 
 /** _.extend
 * Arguments:
@@ -489,6 +591,19 @@ _.map = function(collection, func){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+//creating a function that takes in two objects and possibly more
+//using the spread operator to account for more object parameters
+//copying all properties from the given object and [assing them to object1
+//Returning object1 updated 
+//creating a new variable to store the updated object and then returning it 
+//using the object.assign method to assign all of the other object properties to object 1
+
+
+
+_.extend = function(object1, ...object2) {
+    var newObject = Object.assign(object1, ...object2)
+    return newObject;
+}
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////

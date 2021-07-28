@@ -59,11 +59,133 @@
 *         stored by refrence 
 *
 
+/*
+There are two complex data Types that are named collections, these are called objects and arrays
+* They are both considered a collection but they collect data in different ways with different syntax
+* *
+* /**Arrays
+ * elements are listed by its index starting from 0
+ * Objects do not have an ordered list 
+ * 
+ * Arrays have elements 
+ * objects have key value pairs 
+ * 
+ * Arrays are in essence an object thats designed to behave like an array 
+ * objects are actually just objects 
+ * 
+ * 
+ * 
+ * Objects!
+ * Objects are filled with key value pairs, unlike arrays, objects are not orderd by indecies
+ * 
+ * Objects can store any data type along with storing nested data types
+ * 
+ * 
+ * 
+ */
 
 
 
-Array
-// Object
-// Function
-// Infinity and -Infinity (Google them if you don't know!)
+/** Arrays: with arrays you can use the push method
+ * unshift or bracket notation or concatenation
+ * 
+ * You can you use dot notation or braket notation to add to objects 
+ */
+
+var arr = ["what", "the", "heck"]
+arr.push(" is this")
+
+console.log(arr)
+
+
+var obj = {
+  thoughts: 'none',
+  mood: "hungry",
+  food: "burnt"
+}
+
+obj["moneyForFood"] = null;
+//console.log(obj)
+
+
+
+/** You can use the splice method to remove things from an array. .pop() or .shift() or delete
+ * 
+ * You can use the delete operator to delete properites from objects 
+ */
+
+ arr.shift();
+console.log(arr)
+
+
+delete obj.moneyForFood
+
+console.log(obj)
+
+
+
+// How do you access things from them?
+/** for loops for arrays 
+ * 
+ * for in loops for objects 
+ */
+
+for(var i = 0; i < arr.length; i++){
+  console.log(arr[i]);
+}
+
+for(var key in obj){
+  console.log(obj[key])
+}
+/** I would use an array for data that needs to be stored in a certain
+ * ordered or data that didnt need excessive information for each element 
+ * 
+ * I would use objects if i need to store multiple elements of data for
+ * one thing for example if i wanted to store a student and the students name and the students grades but I wanted a bunch of students 
+
+*/
+
+/**
+ * Next complex data type are Functions!
+ * 
+ * Functions are blocks of code that can be used multiple times throughout your code!
+ * This saves time and prevents error 
+ * The purpose of creating a function is to be able to use a set of code to perform a 
+ * certain action like looping through an object or array 
+ * You can even capitalize all letters or lowercase or letters
+ * Functions allow you to do a number of things
+ * 
+ * The syntax for a function is diffeerent from the other two
+ * complex data types mentioned arrays and functions
+ * 
+ * Functions have a few main parts:
+ * 1. the keyword function or arrow function 
+ * 2. a set of parethesis () used to hold parameters
+ * 3. a set of curly braces{} used to hold the code, named the code block
+ * 4. used another set of parenthesis () to call the function
+ * 5. Arguments are passed inside of the function call if needed
+ * 6. Parameteres are place holders for arguments 
+ * 7. Parameters are not required making arguments not required
+ * 
+ * 
+ * In this example I will create a function that loops through an array
+ * and return the array with its elements all lowercased 
+ * 
+*/
+
+var greeting = ["HEY!"];
+function loopLow (array){
+    
+    for(let i = 0; i < array.length; i++){
+        array[i].toLowerCase();
+    }
+    return array;
+}
+
+loopLow(greeting); //=> prints to the console hey!
+
+
+
+/**
+ * 
 */

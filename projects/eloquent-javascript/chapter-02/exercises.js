@@ -6,21 +6,30 @@
 //Creating a string of seven hashtags
 //looping through the string
 //using console.log to print the hash tags incrementing by 1
-function triangles() {
-var string = "#######";
+function triangles(num) {
 
-for(var i = 0; i < 7 ; i++){
-  console.log("#")
-  }
-
-
+            var string = "";
+            for (var i = 0; i < num; i++) {
+                console.log(string += "#");
+            }
 }
 ////////////////////////////////////////////////////////////////////////////////
 // fizzBuzz ////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 function fizzBuzz() {
-  
+
+    for (var i = 1; i <= 15; i++) {
+        if (i % 15 === 0) {
+            console.log('fizzbuzz');
+        } else if (i % 5 === 0) {
+            console.log('buzz');
+        } else if (i % 3 === 0) {
+            console.log('fizz');
+        } else {
+            console.log(i);
+        }    
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,8 +37,19 @@ function fizzBuzz() {
 ////////////////////////////////////////////////////////////////////////////////
 
 function drawChessboard() {
+var size = 8;
+var board = "";
 
-}
+for (var y = 0; y < size; y++) {
+  for (var x = 0; x < size; x++) {
+    if ((x + y) % 2 == 0)
+      board += " ";
+    else
+      board += "#";
+  }
+  board += "\n";
+
+}}
 
 ////////////////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
